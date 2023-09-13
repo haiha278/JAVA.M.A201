@@ -1,6 +1,6 @@
-package model;
+package fa.training.entities;
 
-import validate.Validation;
+import fa.training.utils.Validator;
 
 import java.util.Scanner;
 
@@ -75,8 +75,9 @@ public class Course {
     }
 
     public void input() {
-        Validation validation = new Validation();
-        while (true) {
+        Course[] courses = new Course[10];
+        Validator validation = new Validator();
+        for (int i = 0; i < 10; i++) {
             Course course = new Course();
             while (true) {
                 System.out.println("Enter course code: ");
@@ -90,13 +91,33 @@ public class Course {
             }
             System.out.println("Enter course name: ");
             String course_name = sc.nextLine();
+            course.setCourseName(course_name);
+
             System.out.println("Enter duration: ");
             double duration = sc.nextDouble();
-            System.out.println("Enter status: ");
-            String status = sc.nextLine();
-            System.out.println("Enter flag: ");
-            String flag = sc.nextLine();
-        }
+            course.setDuration(duration);
 
+            while (true) {
+                System.out.println("Enter course status: ");
+                String status = sc.nextLine();
+                if (validation.check_status(status) == false) {
+                    System.out.println("Enter wrong course status, please enter again!");
+                    continue;
+                }
+                course.setStatus(status);
+                break;
+            }
+            while (true) {
+                System.out.println("Enter course flag: ");
+                String flag = sc.nextLine();
+                if (validation.check_flag(flag) == false) {
+                    System.out.println("Enter wrong course flag, please enter again!");
+                    continue;
+                }
+                course.setFlag(flag);
+                break;
+            }
+            courses[i] = course;
+        }
     }
 }

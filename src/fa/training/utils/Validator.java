@@ -1,6 +1,6 @@
-package validate;
+package fa.training.utils;
 
-public class Validation {
+public class Validator {
     public boolean check_course_code(String courseCode) {
         if (courseCode.length() == 5
                 && courseCode.substring(0, 1).equals("FW")
